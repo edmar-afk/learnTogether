@@ -1,0 +1,366 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Event</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
+			rel="stylesheet" />
+		{% tailwind_css %}
+	</head>
+	<body>
+		<button
+			data-drawer-target="cta-button-sidebar"
+			data-drawer-toggle="cta-button-sidebar"
+			aria-controls="cta-button-sidebar"
+			type="button"
+			class="fixed bg-green-400 inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+			<span class="sr-only">Open sidebar</span>
+			<svg
+				class="w-6 h-6"
+				aria-hidden="true"
+				fill="currentColor"
+				viewBox="0 0 20 20"
+				xmlns="http://www.w3.org/2000/svg">
+				<path
+					clip-rule="evenodd"
+					fill-rule="evenodd"
+					d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+			</svg>
+		</button>
+
+		<aside
+			id="cta-button-sidebar"
+			class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+			aria-label="Sidebar">
+			<div class="h-full px-3 py-4 overflow-y-auto bg-gray-50">
+				<img
+					src="{{teacher.profile_pic.url}}"
+					class="w-12 mx-auto rounded-full mt-8"
+					alt="pic}" />
+
+				<p class="text-center py-8 font-bold text-xl">IGNHS E-class</p>
+				<ul class="space-y-2 font-medium">
+					<!-- <li>
+						<a
+							href="{% url 'teacherDashboard' %}"
+							class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+							<i
+								class="fa-solid fa-table-columns text-lg text-gray-500 transition duration-75 group-hover:text-gray-900"></i>
+							<span class="ms-3">Dashboard</span>
+						</a>
+					</li> -->
+					<li>
+						<a
+							href="{% url 'studentList' %}"
+							class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+							<i class="fa-solid fa-users text-lg text-gray-500 transition duration-75 group-hover:text-gray-900"></i>
+							<span class="ms-3">Student Lists</span>
+						</a>
+					</li>
+					<li>
+						<a
+							href="{% url 'announcement' %}"
+							class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+							<svg
+								class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="currentColor"
+								viewBox="0 0 18 18">
+								<path
+									d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
+							</svg>
+							<span class="flex-1 ms-3 whitespace-nowrap">Announcements</span>
+							<span
+								class="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full">
+								<i class="fa-solid fa-bullhorn animate-bounce"></i>
+							</span>
+						</a>
+					</li>
+					<li>
+						<button
+							type="button"
+							class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
+							aria-controls="dropdown-example"
+							data-collapse-toggle="dropdown-example">
+							<svg
+								class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="currentColor"
+								viewBox="0 0 18 18">
+								<path
+									d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
+							</svg>
+							<span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Forum</span>
+							<svg
+								class="w-3 h-3"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 10 6">
+								<path
+									stroke="currentColor"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="m1 1 4 4 4-4" />
+							</svg>
+						</button>
+						<ul
+							id="dropdown-example"
+							class="hidden py-2 space-y-2">
+							<li>
+								<a
+									href="{% url 'forum' %}"
+									class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">
+									View Forum
+								</a>
+							</li>
+
+							<li>
+								<a
+									href="{% url 'topics' %}"
+									class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">
+									Topics
+								</a>
+							</li>
+							<li>
+								<a
+									href="{% url 'event' %}"
+									class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">
+									Upcoming Events
+								</a>
+							</li>
+						</ul>
+					</li>
+
+					<li>
+						<a
+							href="{% url 'logout' %}"
+							class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+							<i
+								class="fa-solid fa-right-from-bracket flex-shrink-0 text-gray-500 transition duration-75 group-hover:text-gray-900"></i>
+							<span class="flex-1 ms-3 whitespace-nowrap">Logout</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</aside>
+
+		<div class="p-2 sm:p-4 sm:ml-64">
+			<!-- Modal toggle -->
+
+			<div class="p-4 border-2 border-gray-200 border-dashed rounded-lg">
+				<div class="flex justify-end text-white mb-2">
+					<button
+						data-modal-target="authentication-modal"
+						data-modal-toggle="authentication-modal"
+						class="flextext-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+						type="button">
+						Create Event
+					</button>
+				</div>
+
+				{% for message in messages %}
+				<div
+					id="alert-additional-content-3"
+					class="p-4 mb-4 text-green-800 border border-green-300 rounded-lg bg-green-50"
+					role="alert">
+					<div class="flex items-center">
+						<svg
+							class="flex-shrink-0 w-4 h-4 me-2"
+							aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg"
+							fill="currentColor"
+							viewBox="0 0 20 20">
+							<path
+								d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+						</svg>
+						<span class="sr-only">Info</span>
+						<h3 class="text-lg font-medium">{{message}}</h3>
+					</div>
+					<div class="mt-2 mb-4 text-sm"></div>
+					<div class="flex">
+						<button
+							type="button"
+							class="text-green-800 bg-transparent border border-green-800 hover:bg-green-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center"
+							data-dismiss-target="#alert-additional-content-3"
+							aria-label="Close">
+							Dismiss
+						</button>
+					</div>
+				</div>
+				{% endfor %}
+
+				<!-- component -->
+
+				<div class="bg-gray-10 items-center justify-start">
+					<div class="px-1 sm:px-8 py-1 sm:py-8">
+						{% for event in events %}
+						<div class="bg-white rounded-2xl px-10 my-8 py-8 shadow-lg hover:shadow-2xl transition duration-500">
+							<div class="flex items-center">
+								<div class="w-14 h-14 bg-blue-500 rounded-full flex items-center justify-center font-bold text-white">
+									<img
+										class="w-12 h-12 rounded-full"
+										src="{{event.uploader.profile_pic.url}}"
+										alt="" />
+								</div>
+								<div class="flex flex-col">
+									<p class="ml-2 text-gray-500">
+										{{event.uploader.user.first_name}} {{event.uploader.user.last_name}}
+									</p>
+									<p class="ml-2 text-xs">Posted an Event/p>
+								</div>
+							</div>
+							<div class="mt-4">
+								<h1 class="text-lg text-gray-700 font-semibold hover:underline cursor-pointer">{{event.title}}</h1>
+								<p class="mt-2 text-sm font-semibold text-gray-400">{{event.upload_date}}</p>
+								<p class="mt-4 text-md text-gray-600 break-all">{{event.description}}</p>
+								<div>
+									<img
+										src=""
+										alt="" />
+								</div>
+								<div class="flex justify-between items-center">
+									<!-- <div class="mt-4 flex items-center space-x-4 py-6">
+										<a
+											href="#"
+											class="text-md font-semibold hover:text-blue-400 hover:scale-105 duration-300">
+											<i class="fa-solid fa-comment-dots"></i>
+											0 Comments
+										</a>
+									</div> -->
+									<a
+										href="{% url 'deleteevent' event.id %}"
+										class="p-6 bg-red-500 rounded-full h-3 w-3 flex items-center justify-center text-2xl text-white mt-4 shadow-lg cursor-pointer hover:shadow-2xl hover:shadow-red-400 hover:scale-110 duration-300">
+										<i class="fa-solid fa-trash-can text-sm"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+
+						<script>
+							// Get the filename from the full path
+							var fullPath = "{{event.file}}";
+							var fileName = fullPath.split("/").pop();
+
+							// Set the extracted filename in the span element
+							document.getElementById("fileName").innerText = fileName;
+						</script>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Main modal -->
+		<div
+			id="authentication-modal"
+			tabindex="-1"
+			aria-hidden="true"
+			class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+			<div class="relative p-4 w-full max-w-3xl max-h-full">
+				<!-- Modal content -->
+				<div class="relative bg-white rounded-lg shadow">
+					<!-- Modal header -->
+					<div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
+						<h3 class="text-xl font-semibold text-gray-900">Create new Event</h3>
+						<button
+							type="button"
+							class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+							data-modal-hide="authentication-modal">
+							<svg
+								class="w-3 h-3"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 14 14">
+								<path
+									stroke="currentColor"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+							</svg>
+							<span class="sr-only">Close modal</span>
+						</button>
+					</div>
+					<!-- Modal body -->
+					<div class="p-4 md:p-5">
+						<form
+							class="space-y-4"
+							action="#"
+							method="post"
+							enctype="multipart/form-data">
+							{% csrf_token %}
+							<div>
+								<label
+									for="title"
+									class="block mb-2 text-sm font-medium text-gray-900">
+									Title
+								</label>
+								<input
+									type="text"
+									name="title"
+									id="title"
+									class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400"
+									placeholder="How to make Lumpia"
+									required />
+							</div>
+							<div class="mb-3">
+								<label
+									for="formFile"
+									class="mb-2 inline-block text-neutral-500">
+									Insert File
+									<span class="text-xs text-orange-300">(only 1 image can upload per Event, can leave blank)</span>
+								</label>
+								<input
+									class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-blue-200 bg-transparent bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-surface transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:me-3 file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-e file:border-solid file:border-inherit file:bg-transparent file:px-3 file:py-[0.32rem] file:text-surface focus:border-green-400 focus:text-gray-700 focus:shadow-inset focus:outline-none"
+									type="file"
+									name="file"
+									id="formFile" />
+							</div>
+							<div class="col-span-2">
+								<label
+									for="description"
+									class="block mb-2 text-sm font-medium text-gray-900">
+									Event Discussion
+								</label>
+								<textarea
+									id="description"
+									name="description"
+									rows="4"
+									class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+									placeholder="Write very long description here"
+									required></textarea>
+							</div>
+							<div>
+								<button
+									type="submit"
+									class="w-lg text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+									POST
+								</button>
+								<button
+									data-modal-hide="authentication-modal"
+									class="w-lg text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+									Close
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+	</body>
+</html>

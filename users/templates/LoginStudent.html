@@ -1,0 +1,97 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Login</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+		{% tailwind_css %}
+	</head>
+	<body>
+		<div class="min-h-screen w-full text-gray-900 flex justify-center">
+			<div class="max-w-screen-md bg-white shadow sm:rounded-lg flex justify-center flex-1">
+				<div class="p-6 sm:p-12">
+					<div class="mt-12 mb-12 flex flex-col items-center">
+						<h1 class="text-2xl xl:text-3xl font-extrabold">Student Signup</h1>
+
+						{% for message in messages%} {% if message.level_tag == 'success' %}
+						<p class="text-center text-green-800 font-bold mt-14 text-lg">{{message}}</p>
+						{% else %}
+						<p class="text-center text-red-400 font-bold mt-14 text-lg">{{message}}</p>
+						{%endif%} {% endfor %}
+						<div class="w-full flex-1 mt-8">
+							<form
+								class="mx-auto max-w-xs mt-8"
+								action="{% url 'loginStudent' %}"
+								method="post"
+								enctype="multipart/form-data">
+								{% csrf_token %}
+
+								<input
+									class="w-full px-8 mb-6 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+									type="text"
+									name="first_name"
+									placeholder="Full Name"
+									required />
+
+								<input
+									class="w-full px-8 mb-6 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+									type="email"
+									name="email"
+									placeholder="sample@gmail.com"
+									required />
+
+								<input
+									class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+									type="password"
+									name="password1"
+									placeholder="Password"
+									required />
+
+								<input
+									class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+									type="password"
+									name="password2"
+									placeholder="Repeat Password"
+									required />
+								<button
+									type="submit"
+									name="submit"
+									class="mt-5 tracking-wide font-semibold bg-green-500 text-gray-100 w-full py-4 rounded-lg hover:bg-green-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+									<span class="ml-3">Create Account</span>
+								</button>
+							</form>
+						</div>
+					</div>
+					<center>
+						<a
+							href="{% url 'homepage' %}"
+							class="mt-12 text-md font-bold text-blue-600 text-center">
+							Back to Home
+						</a>
+						<br /><br>
+						<a
+							href="{% url 'loginTeacher' %}"
+							class="mt-12 text-md font-bold text-blue-600 text-center">
+							Login as Teacher
+						</a>
+					</center>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			document.getElementById("underline_select").addEventListener("change", function () {
+				var selectedOption = this.options[this.selectedIndex];
+				if (selectedOption.value === "teacher") {
+					window.location.href = "{% url 'loginTeacher' %}";
+				}
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,123 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Forums</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
+			rel="stylesheet" />
+		{% tailwind_css %}
+	</head>
+	<body>
+		{% include 'includes/teacher_sidebar.html' %}
+
+		<div class="p-2 sm:p-4 sm:ml-64 mt-14">
+			<!-- Modal toggle -->
+
+			<div class="p-4">
+				
+				<div class="flex items-center justify-start">
+					<div class="px-1 sm:px-8 py-1 sm:py-6 w-full">
+						<div class="bg-white rounded-2xl px-10 py-8 border-2">
+							<div class="flex items-center">
+								<div class="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center font-bold text-white">
+									<i class="fa fa-user" aria-hidden="true"></i>
+								</div>
+								<p class="ml-2 text-gray-500">{{forum.uploader.first_name}}</p>
+							</div>
+							<div class="mt-4">
+								
+								<p class="mt-2 text-sm font-semibold text-gray-400">{{forum.upload_date}}</p>
+								<p class="mt-4 text-md text-gray-600 break-all">{{forum.description}}</p>
+								{% if forum.file %}
+								<center><img
+									src="{{ forum.file.url }}"
+									class="mt-4 rounded-lg"
+									alt="" /></center>
+								
+								{% endif %}
+								<div>
+									<img
+										src=""
+										alt="" />
+								</div>
+							</div>
+						</div>
+						<p class="ml-3 py-4 font-bold">Comments</p>
+					</div>
+				</div>
+				<div>
+					{% for comment in comments %}
+					<div class="flex flex-col py-2 px-8">
+						<div class="bg-green-50 p-3 rounded-xl shadow-md hover:bg-green-300 duration-300">
+							<div class="flex justify-between items-center mb-2">
+								<div class="flex items-center">
+									<p class="inline-flex items-center mr-3 text-md text-gray-900 font-bold">
+										<!-- <img
+											class="mr-2 w-8 h-8 rounded-full"
+											src="{{comment.commentors.student.profile_pic}}" /> -->
+										{{comment.commentors.first_name}}
+									</p>
+									<p class="text-sm text-gray-600">{{comment.comment_date}}</p>
+								</div>
+							</div>
+							<p class="text-gray-500 ml-1">{{comment.comment}}</p>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+
+				<form
+					class="space-y-4 p-2 bg-white py-2 sticky bottom-0 left-0"
+					action="#"
+					method="post"
+					enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="col-span-2">
+						<input
+							type="text"
+							name="post"
+							class="bg-gray-50 border hidden border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 w-full p-2.5 placeholder-gray-400"
+							value="{{forum.id}}"
+							required />
+
+						<input
+							type="text"
+							name="commentor"
+							class="bg-gray-50 hidden border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 w-full p-2.5 placeholder-gray-400"
+							value="{{user.id}}"
+							required />
+						<input
+							type="text"
+							name="comment"
+							id="title"
+							class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 placeholder-gray-400"
+							placeholder="Write comment here"
+							required />
+					</div>
+					<div>
+						<button
+							type="submit"
+							class="w-lg text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+							Comment
+						</button>
+						<a
+							href="{% url 'forum' %}"
+							class="w-lg text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+							Back
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+	</body>
+</html>

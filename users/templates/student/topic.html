@@ -1,0 +1,106 @@
+{% load static tailwind_tags %}<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Topic</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
+			rel="stylesheet" />
+		{% tailwind_css %}
+	</head>
+	<body>
+		{% include 'includes/studentSidebar.html' %}
+
+		<div class="p-4 sm:ml-64 mt-14">	
+			<p class="text-left text-4xl font-bold my-4">Topics</p>
+			<div class="p-4">
+				<div class="bg-gray-10 items-center justify-start">
+					<div class="px-1 sm:px-8 py-1 sm:py-8">
+						{% for topic in topics %}
+						<div class="rounded-2xl px-10 my-8 py-8 border-2 border-green-400">
+							<div class="flex items-center">
+								<div class="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center font-bold text-white">
+									<i class="fa fa-user" aria-hidden="true"></i>
+								</div>
+								<div class="flex flex-col">
+									<p class="ml-2 text-gray-500">{{topic.uploader.first_name}}</p>
+									<p class="ml-2 text-xs">Posted a Topic</p>
+								</div>
+							</div>
+							<div class="mt-4">
+								
+								<p class="mt-2 text-sm font-semibold text-gray-400">{{topic.upload_date}}</p>
+								<p class="mt-4 text-md text-gray-600 break-all">{{topic.description}}</p>
+
+								{% if topic.file %} {% if topic.file.name|lower|slice:'-3:' == 'mp4' %}
+								<center><video
+									width="80%"
+									height="240"
+									class="mt-4 rounded-xl"
+									controls>
+									<source
+										src="{{ topic.file.url }}"
+										type="video/mp4" />
+									Your browser does not support the video tag.
+								</video></center>
+								{% elif topic.file.name|lower|slice:'-3:' == 'jpg' or topic.file.name|lower|slice:'-3:' == 'png' %}
+								<img
+									src="{{ topic.file.url }}"
+									alt="Image" />
+								{% else %}
+								<a
+									href="{{ topic.file.url }}"
+									target="_blank"
+									download="{{ topic.file }}"
+									class="mt-4 rounded-lg flex flex-col bg-green-400 w-fit p-2 px-6 font-bold shadow-md hover:bg-green-600 hover:scale-105 hover:shadow-2xl hover:text-white duration-300">
+									Download
+									<span
+										id="fileName"
+										class=""></span>
+								</a>
+								{% endif %}
+								
+								{% endif %}
+
+							</div>
+						</div>
+
+						<script>
+							// Get the filename from the full path
+							var fullPath = "{{topic.file}}";
+							var fileName = fullPath.split("/").pop();
+
+							// Set the extracted filename in the span element
+							document.getElementById("fileName").innerText = fileName;
+						</script>
+						{% endfor %}
+					</div>
+				</div>
+		</div>
+		<script>
+					function searchDivs() {
+						var input, filter, titles, i;
+						input = document.getElementById("searchInput");
+						filter = input.value.toUpperCase();
+						titles = document.querySelectorAll(".forumTitle");
+
+						titles.forEach(function (title) {
+							var titleText = title.textContent || title.innerText;
+							if (titleText.toUpperCase().indexOf(filter) > -1) {
+								title.closest(".bg-white").style.display = "";
+							} else {
+								title.closest(".bg-white").style.display = "none";
+							}
+						});
+					}
+				</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+		
+	</body>
+</html>

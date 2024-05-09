@@ -1,0 +1,47 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>LearnTogether</title>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="ie=edge" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
+			rel="stylesheet" />
+		<link
+			rel="stylesheet"
+			href="{% static 'css/style.css' %}" />
+		{% tailwind_css %}
+	</head>
+
+	<body class="bg-gray-50 font-arial leading-normal tracking-normal bg">
+		{% include 'includes/navbar.html' %}
+		<section class="bg-gray-800/80 text-gray-100 h-screen">
+			<div
+				class="container mx-auto flex flex-col items-center px-4 py-16 text-center md:py-32 md:px-10 lg:px-32 xl:max-w-3xl">
+				<h1 class="text-4xl font-bold leading-none sm:text-5xl mt-24">
+					Welcome to
+					<span class="text-violet-400">LearnTogether Hub</span>
+				</h1>
+				<p class="px-2 mt-8 mb-12 text-lg">
+					Is an interactive educational forum where learners collaborate, share knowledge, and engage in discussions to
+					connect with like-minded individuals and explore diverse subjects together!
+				</p>
+				<div class="flex flex-wrap justify-center">
+					<a href="{% url 'login' %}" class="px-8 py-3 m-2 text-lg font-semibold rounded bg-violet-400 text-white hover:scale-110 duration-300"><i class="fas fa-door-open"></i> Login</a>
+					<a href="{% url 'loginStudent' %}" class="px-8 py-3 m-2 text-lg border rounded text-gray-50 hover:scale-110 duration-300"><i class="fa fa-user-plus" aria-hidden="true"></i> Create Account</a>
+				</div>
+			</div>
+		</section>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+	</body>
+</html>
